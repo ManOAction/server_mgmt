@@ -1,5 +1,6 @@
+#tasks/jobs/ddns_cloudflare.py
 import logging, requests
-from tasks.config import settings
+from config import settings
 
 log = logging.getLogger("tasks.ddns")
 

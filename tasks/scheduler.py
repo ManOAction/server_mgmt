@@ -1,8 +1,8 @@
 import sys, signal, logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-from tasks.config import settings
-from tasks.jobs import hello, ddns_cloudflare
+from config import settings
+from jobs import hello, ddns_cloudflare
 
 logging.basicConfig(
     level=logging.INFO,

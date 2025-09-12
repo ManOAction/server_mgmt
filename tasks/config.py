@@ -1,0 +1,16 @@
+import os
+
+class Settings:
+    TZ = os.getenv("TZ", "UTC")
+
+    # Cloudflare
+    CF_API_TOKEN = os.getenv("CF_API_TOKEN")
+    CF_ZONE_ID   = os.getenv("CF_ZONE_ID")
+    CF_DNS_NAME  = os.getenv("CF_DNS_NAME", "home.example.com")
+    CF_PROXIED   = os.getenv("CF_PROXIED", "false").lower() in ("1","true","yes","on")
+
+    # Schedules
+    DDNS_INTERVAL_MIN  = int(os.getenv("DDNS_INTERVAL_MIN", "5"))
+    HELLO_INTERVAL_MIN = int(os.getenv("HELLO_INTERVAL_MIN", "1"))
+
+settings = Settings()
