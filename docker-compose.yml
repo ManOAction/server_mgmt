@@ -12,7 +12,7 @@ services:
       - ./nginx/log:/var/log/nginx
 
   lazydocker:
-    image: ghcr.io/jesseduffield/lazydocker:latest
+    image: lazyteam/lazydocker:latest
     # Lazydocker is TUI/interactive; run it on-demand.
     # docker compose run --rm -it lazydocker
     container_name: lazydocker
