@@ -1,0 +1,24 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # add "443:443" later if you configure TLS
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/html:/usr/share/nginx/html:ro
+      - ./nginx/log:/var/log/nginx
+
+  lazydocker:
+    image: ghcr.io/jesseduffield/lazydocker:latest
+    # Lazydocker is TUI/interactive; run it on-demand.
+    # docker compose run --rm -it lazydocker
+    container_name: lazydocker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOME}/.config/lazydocker:/.config/jesseduffield/lazydocker
+    tty: true
+    stdin_open: true
+    # no ports, no restart: we only "run" it when needed
