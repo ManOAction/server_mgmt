@@ -15,16 +15,10 @@ services:
 
   tasks:
     build: ./tasks
+    env_file:
+      - .env
     container_name: tasks
     restart: unless-stopped
-    environment:
-      - TZ=${TZ}
-      - CF_API_TOKEN=${CF_API_TOKEN}
-      - CF_ZONE_ID=${CF_ZONE_ID}
-      - CF_DNS_NAME=${CF_DNS_NAME}
-      - CF_PROXIED=${CF_PROXIED:-false}
-      - DDNS_INTERVAL_MIN=${DDNS_INTERVAL_MIN}
-      - HELLO_INTERVAL_MIN=${HELLO_INTERVAL_MIN}
 
   lazydocker:
     # Lazydocker is TUI/interactive; run it on-demand.
