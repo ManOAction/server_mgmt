@@ -2,7 +2,7 @@ import sys, signal, logging
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from config import settings
-from jobs import hello, ddns_cloudflare
+from jobs import hello, ddns_route53
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,7 +14,7 @@ sched = BlockingScheduler()
 
 # Register jobs
 sched.add_job(hello.run,         IntervalTrigger(minutes=settings.HELLO_INTERVAL_MIN), id="hello")
-sched.add_job(ddns_cloudflare.run, IntervalTrigger(minutes=settings.DDNS_INTERVAL_MIN), id="ddns")
+sched.add_job(ddns_route53.run, IntervalTrigger(minutes=settings.DDNS_INTERVAL_MIN), id="ddns")
 
 def _sigterm(*_):
     log.info("SIGTERM received, shutting down scheduler...")

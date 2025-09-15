@@ -5,10 +5,12 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      # add "443:443" later if you configure TLS
+      - "443:443"
+      - "8000:8000"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/html:/usr/share/nginx/html:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/log:/var/log/nginx
 
   tasks:
@@ -25,13 +27,18 @@ services:
       - HELLO_INTERVAL_MIN=${HELLO_INTERVAL_MIN}
 
   lazydocker:
-    image: lazyteam/lazydocker:latest
     # Lazydocker is TUI/interactive; run it on-demand.
     # docker compose run --rm -it lazydocker
+    image: lazyteam/lazydocker:latest
     container_name: lazydocker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${HOME}/.config/lazydocker:/.config/jesseduffield/lazydocker
     tty: true
     stdin_open: true
-    # no ports, no restart: we only "run" it when needed
+
+networks:
+  # docker network create edge-proxy
+  edge-proxy:
+    external: true
+    name: edge-proxy

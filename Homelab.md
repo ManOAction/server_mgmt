@@ -28,6 +28,10 @@ The goal is to turn a spare laptop into a self-hosted playground for web apps, d
   - Deny all incoming by default
   - Allow outgoing
   - Open ports: `22` (SSH), `80` (HTTP), `443` (HTTPS)
+  - Check with this -- sudo ufw status
+  - Allow w/this -- sudo ufw allow 8080
+  - Take effect w/this -- sudo ufw reload
+
 - Installed and configured **Fail2Ban** for SSH brute-force protection
 
 # 📦 Install Fail2Ban
@@ -103,6 +107,8 @@ sudo less /var/log/fail2ban.log
 - [ ] Deploy one of our own projects (FastAPI/Django app)
 - [ ] Configure HTTPS via NGINX Proxy Manager (Let’s Encrypt)
 - [ ] Implement **Dynamic DNS** (Using Cloudflare w/Domain)
+    - docker exec -it tasks bash -lc 'python -c "from jobs import ddns_route53; ddns_route53.run()"'
+
 
 ### Phase 4: Networking & Remote Access
 
