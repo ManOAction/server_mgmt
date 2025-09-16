@@ -19,6 +19,11 @@ services:
     env_file:
       - .env
     container_name: tasks
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - COMPOSE_PROJECT_NAME=server_mgmt
+    user: "0:0"  # Run as root to access docker socket
     restart: unless-stopped
 
   certbot:
