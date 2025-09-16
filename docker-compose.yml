@@ -10,8 +10,9 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/html:/usr/share/nginx/html:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/log:/var/log/nginx
+      - certbot-certs:/etc/letsencrypt:ro
+      - ./certbot-www:/var/www/certbot:ro
 
   tasks:
     build: ./tasks
@@ -19,6 +20,21 @@ services:
       - .env
     container_name: tasks
     restart: unless-stopped
+
+  certbot:
+    build: ./certbot
+    env_file:
+      - .env
+    container_name: certbot
+    volumes:
+      - certbot-certs:/etc/letsencrypt
+      - ./certbot-credentials:/etc/certbot-credentials:ro
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    # Route 53 DNS-01 challenge
+    command: certonly -v --dns-route53 --email jacobleis@gmail.com --agree-tos --no-eff-email -d wintermind.io
+    restart: "no"
 
   lazydocker:
     # Lazydocker is TUI/interactive; run it on-demand.
@@ -30,6 +46,9 @@ services:
       - ${HOME}/.config/lazydocker:/.config/jesseduffield/lazydocker
     tty: true
     stdin_open: true
+
+volumes:
+  certbot-certs:
 
 networks:
   # docker network create edge-proxy
