@@ -38,6 +38,13 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     # Route 53 DNS-01 challenge
+    # If you drop volumes, rebuild certs with this.
+    #   docker compose run --rm certbot certonly \
+    # --dns-route53 \
+    # --non-interactive \
+    # --agree-tos \
+    # --email jacobleis@gmail.com \
+    # -d wintermind.io -d '*.wintermind.io'
     command: certonly -v --dns-route53 --email jacobleis@gmail.com --agree-tos --no-eff-email -d wintermind.io
     restart: "no"
 

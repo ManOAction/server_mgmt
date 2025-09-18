@@ -1,0 +1,36 @@
+# sudo cp ~/server_mgmt/fail2ban/jail.local /etc/fail2ban/jail.local
+# sudo systemctl restart fail2ban
+# sudo fail2ban-client status
+# sudo fail2ban-client status sshd
+
+[sshd]
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
+backend = systemd
+
+# --- Ban settings ---
+maxretry     = 3
+findtime     = 10m
+bantime      = 24h
+bantime.increment = true
+bantime.rndtime = 30m
+bantime.factor = 2
+bantime.maxtime = 336h
+
+
+[nginx-http-auth]
+enabled  = true
+port     = http,https
+logpath  = /home/jadmin/server_mgmt/nginx/log/access.log
+maxretry = 3
+findtime = 10m
+bantime  = 24h
+
+[nginx-badbots]
+enabled  = true
+port     = http,https
+logpath  = /home/jadmin/server_mgmt/nginx/log/access.log
+maxretry = 2
+findtime = 10m
+bantime  = 24h

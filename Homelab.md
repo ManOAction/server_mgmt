@@ -50,7 +50,7 @@ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 
 # ✏️ Edit config (enable sshd jail, adjust retries/bantime)
 
-sudo nano /etc/fail2ban/jail.local
+sudo vim /etc/fail2ban/jail.local
 
 # Example sshd section (inside jail.local):
 
