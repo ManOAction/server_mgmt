@@ -19,18 +19,31 @@ bantime.factor = 2
 bantime.maxtime = 336h
 
 
-[nginx-http-auth]
+[nginx-botsearch]
 enabled  = true
+filter   = nginx-botsearch
 port     = http,https
 logpath  = /home/jadmin/server_mgmt/nginx/log/access.log
+backend  = auto
 maxretry = 3
 findtime = 10m
 bantime  = 24h
+bantime.increment = true
+bantime.rndtime = 30m
+bantime.factor = 2
+bantime.maxtime = 336h
 
-[nginx-badbots]
+
+[nginx-bad-request]
 enabled  = true
+filter   = nginx-bad-request
 port     = http,https
 logpath  = /home/jadmin/server_mgmt/nginx/log/access.log
-maxretry = 2
+backend  = auto
+maxretry = 6
 findtime = 10m
 bantime  = 24h
+bantime.increment = true
+bantime.rndtime = 30m
+bantime.factor = 2
+bantime.maxtime = 336h

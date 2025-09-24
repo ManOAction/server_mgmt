@@ -61,6 +61,18 @@ docker compose run --rm certbot certonly   --dns-route53   --non-interactive   -
 - Monitors logs (e.g. SSH, NGINX) and bans IPs that trigger suspicious patterns.
 - Runs on the host, not containerized.
 
+**Setup:**
+```bash
+# Copy sample config to system location
+sudo cp fail2ban/jail.local /etc/fail2ban/jail.local
+
+# Ensure permissions are correct
+sudo chown root:root /etc/fail2ban/jail.local
+sudo chmod 644 /etc/fail2ban/jail.local
+
+# Restart Fail2ban to apply changes
+sudo systemctl restart fail2ban
+
 **Common commands:**
 ```bash
 # Show jail summary
@@ -88,6 +100,7 @@ sudo tail -f /var/log/fail2ban.log
 sudo ufw allow 22/tcp      # SSH
 sudo ufw allow 80/tcp      # HTTP
 sudo ufw allow 443/tcp     # HTTPS
+sudo ufw deny 8000/tcp     # HTTPS
 sudo ufw enable
 ```
 
@@ -103,7 +116,8 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
 # Delete a rule (example: rule number 3 from ufw status numbered)
-sudo ufw delete 3
+sudo ufw status numbered
+sudo ufw delete 4
 
 # Log dropped packets
 sudo ufw logging on
@@ -112,7 +126,8 @@ sudo ufw logging on
 ---
 
 ### SSHD Config
-- Planned: manage `/etc/ssh/sshd_config` for hardened defaults:
+- Manage via `scripts/ssh-hardening.sh` for hardened defaults:
+  - sudo bash scripts/ssh-hardening.sh
   - Disable root login
   - Disable password login (keys only)
   - Restrict ciphers and MACs
