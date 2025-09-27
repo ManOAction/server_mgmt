@@ -6,7 +6,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8000:8000"
+
+    networks:
+      - edge-proxy
+     
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/html:/usr/share/nginx/html:ro
