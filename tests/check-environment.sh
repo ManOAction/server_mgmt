@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Environment Readiness Checks
 # Run on the target Ubuntu server before deploying OpenClaw.
-# Usage:  bash tests/check-environment.sh
+# Usage:  bash scripts/check-environment.sh
 # ---------------------------------------------------------------------------
 
 set -euo pipefail
@@ -11,9 +11,9 @@ PASS=0
 FAIL=0
 WARN=0
 
-pass() { ((PASS++)); echo "  [PASS] $1"; }
-fail() { ((FAIL++)); echo "  [FAIL] $1"; }
-warn() { ((WARN++)); echo "  [WARN] $1"; }
+pass() { PASS=$((PASS + 1)); echo "  [PASS] $1"; }
+fail() { FAIL=$((FAIL + 1)); echo "  [FAIL] $1"; }
+warn() { WARN=$((WARN + 1)); echo "  [WARN] $1"; }
 
 section() { echo ""; echo "== $1 =="; }
 
