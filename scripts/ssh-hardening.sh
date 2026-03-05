@@ -40,7 +40,7 @@ MaxStartups 10:30:100
 PermitEmptyPasswords no
 X11Forwarding no
 AllowAgentForwarding no
-AllowTcpForwarding Yes
+AllowTcpForwarding yes
 # Uncomment to restrict who may log in:
 # AllowUsers jadmin deploy
 # AllowGroups sshusers

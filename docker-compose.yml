@@ -9,7 +9,7 @@ services:
 
     networks:
       - edge-proxy
-     
+
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/html:/usr/share/nginx/html:ro
@@ -51,16 +51,19 @@ services:
     command: certonly -v --dns-route53 --email jacobleis@gmail.com --agree-tos --no-eff-email -d wintermind.io
     restart: "no"
 
-  lazydocker:
-    # Lazydocker is TUI/interactive; run it on-demand.
-    # docker compose run --rm -it lazydocker
-    image: lazyteam/lazydocker:latest
-    container_name: lazydocker
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${HOME}/.config/lazydocker:/.config/jesseduffield/lazydocker
-    tty: true
-    stdin_open: true
+# This doesn't work as a container....
+# Run this CURL and then access locally...
+# sudo curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+  # lazydocker:
+  #   # Lazydocker is TUI/interactive; run it on-demand.
+  #   # docker compose run --rm -it lazydocker
+  #   image: lazyteam/lazydocker:latest
+  #   container_name: lazydocker
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ${HOME}/.config/lazydocker:/.config/jesseduffield/lazydocker
+  #   tty: true
+  #   stdin_open: true
 
 volumes:
   certbot-certs:
